@@ -1,0 +1,5 @@
+https://www.youtube.com/watch?v=i1FeOOhNnwU&ab_channel=EdRoh - flexbox video
+https://yoksel.github.io/flex-cheatsheet/#section-flex-direction - flexbox cheat sheet
+https://www.creative-tim.com/twcomponents/cheatsheet - tailwind cheat sheet
+https://ant.design/docs/react/use-with-vite - ant design 
+https://vitejs.dev/guide/ - vite setup shit
