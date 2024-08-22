@@ -5,21 +5,38 @@ export default function Home() {
 	const [email, setEmail] = useState<string>("");
 	const [name, setName] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
-	const [labelVisible, setLabelVisible] = useState<boolean>(false); // Control visibility
+	const [labelText, setLabelText] = useState<string>(""); // State to hold the label text
+	const [labelVisible, setLabelVisible] = useState<boolean>(false); // Control label visibility
+	const [labelColor, setLabelColor] = useState<string>("text-white"); // State for label color
+
+	function successLabel() {
+		setLabelText("Successfully created user, redirecting now!");
+		setLabelColor("green-600");
+		setLabelVisible(true);
+
+		setEmail("");
+		setName("");
+		setPassword("");
+	}
+
+	function errorLabel(error: any) {
+		console.error(error.code);
+		setLabelText("Error, could not create user. See error code: " + error.code);
+		setLabelColor("red-600");
+		setLabelVisible(true);
+
+		setTimeout(() => {
+			setLabelVisible(false);
+		}, 5000);
+	}
 
 	async function registerUser() {
 		try {
 			const User = { email: email, username: name, password: password };
 			await axios.post("http://localhost:5000/api/user/", User);
-
-			// Clear the text fields by resetting the state variables
-			setEmail("");
-			setName("");
-			setPassword("");
-
-			setLabelVisible(true);
+			successLabel();
 		} catch (error: any) {
-			console.error(error);
+			errorLabel(error);
 		}
 	}
 
@@ -30,6 +47,7 @@ export default function Home() {
 			<input
 				type="email"
 				name="emailInput"
+				placeholder="Enter email"
 				className="bg-black text-white w-96"
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
@@ -38,6 +56,7 @@ export default function Home() {
 			<input
 				type="text"
 				name="usernameInput"
+				placeholder="Enter username"
 				className="bg-black text-white w-96"
 				value={name}
 				onChange={(e) => setName(e.target.value)}
@@ -46,6 +65,7 @@ export default function Home() {
 			<input
 				type="password"
 				name="passwordInput"
+				placeholder="Enter password"
 				className="bg-black text-white w-96"
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
@@ -55,11 +75,9 @@ export default function Home() {
 				onClick={registerUser}>
 				Enter
 			</button>
-			<label
-				className="text-green-600"
-				style={{ display: labelVisible ? "block" : "none" }}>
-				Success, redirecting now!
-			</label>
+			{labelVisible && (
+				<label className={`${labelColor} text-xl`}>{labelText}</label>
+			)}
 		</div>
 	);
 }
