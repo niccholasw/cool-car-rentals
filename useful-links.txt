@@ -3,3 +3,5 @@ https://yoksel.github.io/flex-cheatsheet/#section-flex-direction - flexbox cheat
 https://www.creative-tim.com/twcomponents/cheatsheet - tailwind cheat sheet
 https://ant.design/docs/react/use-with-vite - ant design 
 https://vitejs.dev/guide/ - vite setup shit
+https://cloud.mongodb.com/v2/66c6c75ead865a52fa0d61e9#/metrics/replicaSet/66c6c893710ebd68b71b134b/explorer/test/users/find
+- mongodb

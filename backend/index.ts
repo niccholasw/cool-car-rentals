@@ -1,7 +1,7 @@
 import express, { json } from "express";
-import cors from 'cors'
-import { config } from 'dotenv';
-import routes from './routes/routes';
+import cors from "cors";
+import { config } from "dotenv";
+import routes from "./routes/routes";
 import mongoose from "mongoose";
 config();
 
@@ -16,9 +16,7 @@ app.use(express.json());
 app.use(routes);
 
 mongoose.connect(process.env.MONGO_URL ?? "").then(() => {
-    app.listen(PORT, () => {
-        console.log(`Listening on port ${PORT}`);
-    });
+	app.listen(PORT, () => {
+		console.log(`Listening on port ${PORT}`);
+	});
 });
-
-
