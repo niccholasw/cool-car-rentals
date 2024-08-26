@@ -21,4 +21,22 @@ const createUser = async (req: Request, res: Response) => {
 	}
 };
 
-export { getUser, createUser };
+const loginUser = async (req: Request, res: Response) => {
+	try {
+		const { username, password } = req.body;
+		const user = await UserModel.findOne({
+			username,
+			password,
+		});
+		if (user) {
+			res.status(200).send("Login successful!");
+		} else {
+			res.status(401).send("Invalid credentials");
+		}
+	} catch (error: any) {
+		console.error("Error:", error);
+		res.status(500).send("Internal server error");
+	}
+};
+
+export { getUser, createUser, loginUser };
