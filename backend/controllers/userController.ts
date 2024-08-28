@@ -9,6 +9,11 @@ const createUser = async (req: Request, res: Response) => {
 	try {
 		const { email, username, password } = req.body;
 		const user = new UserModel({ email, username, password });
+		const userExists = await UserModel.findOne({ email: email });
+		if (userExists) {
+			res.status(400).send("Email already exists!");
+			return;
+		}
 		await user.save();
 		res.status(201).send("User created!");
 	} catch (error: any) {
