@@ -44,4 +44,15 @@ const loginUser = async (req: Request, res: Response) => {
 	}
 };
 
-export { getUser, createUser, loginUser };
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await UserModel.findByIdAndDelete(id);
+    res.status(200).send("User successfully deleted!")
+  } catch (error: any) {
+    console.error("Error: " + error);
+    res.send("Error.")
+  }
+}
+
+export { getUser, createUser, loginUser, deleteUser };
