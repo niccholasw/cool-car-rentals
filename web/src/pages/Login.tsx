@@ -16,7 +16,9 @@ export default function Home() {
 		setErrorLabel(true);
 		setName("");
 		setPassword("");
-		navigate("/account");
+		setTimeout(() => {
+			navigate("/account");
+		}, 3000);
 	}
 
 	// Add errors here

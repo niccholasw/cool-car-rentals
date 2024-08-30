@@ -19,7 +19,11 @@ export default function Home() {
 		setEmail("");
 		setName("");
 		setPassword("");
-		navigate("/account");
+		setConfirmPassword("");
+
+		setTimeout(() => {
+			navigate("/account");
+		}, 3000);
 	}
 
 	function changeErrorLabel(error: any) {
