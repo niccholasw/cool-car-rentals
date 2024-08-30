@@ -22,9 +22,21 @@ export default function Home() {
 		navigate("/account");
 	}
 
-	function changeErrorLabel(error: Error) {
+	function changeErrorLabel(error: any) {
 		console.error(error.message);
-		setErrorLabelText("Error, could not create user, " + error.message);
+
+		if (error.response) {
+			if (error.response.status === 400) {
+				setErrorLabelText(error.response.data);
+			} else {
+				setErrorLabelText("Unknown error.");
+			}
+		} else if (error.request) {
+			setErrorLabelText("Could not connect to server.");
+		} else {
+			setErrorLabelText(error.message);
+		}
+
 		setErrorLabelColor("text-red-600");
 		setErrorLabel(true);
 	}
@@ -33,13 +45,13 @@ export default function Home() {
 		e.preventDefault();
 		try {
 			if (password !== confirmPassword) {
-				throw new Error("Passwords do not match");
+				throw new Error("Passwords do not match!");
 			}
 			const User = { email: email, username: name, password: password };
 			await axios.post("http://localhost:5000/api/user/", User);
 			successLabel();
 		} catch (error: any) {
-			changeErrorLabel(error.message);
+			changeErrorLabel(error);
 		}
 	}
 
@@ -119,7 +131,7 @@ export default function Home() {
 						</div>
 					</div>
 
-					<div>
+					<div className="flex flex-col space-y-2">
 						<button
 							type="submit"
 							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
